@@ -1,0 +1,33 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:00ad2e3b08af35c54694c977a2594f1a:6473a6663e5cd89985b5e65c7f3b157a:8cacd65954ef65d257050497e035f847$
+#
+:format=40300
+:texture=Player_pants_anim_walk.png
+:size=256x512
+:pivotpoints=enabled
+:borders=disabled
+
+Anim_IDLE_00000;1;447;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00001;67;447;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00002;133;447;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00003;1;381;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00004;67;381;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00005;133;381;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00006;1;315;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00007;67;315;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00008;133;315;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00009;1;249;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00010;67;249;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00011;133;249;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00012;1;183;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00013;67;183;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00014;133;183;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00015;1;117;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00016;67;117;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00017;133;117;64;64; 0.5;0.5; 0;0;0;0
+Anim_IDLE_00018;1;51;64;64; 0.5;0.5; 0;0;0;0
