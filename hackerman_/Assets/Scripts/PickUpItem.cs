@@ -17,7 +17,9 @@ public class PickUpItem : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
+
 		GameObject g = other.gameObject;
+		Debug.Log (g);
 		if (g.CompareTag("Player")) {
 			gameOver.pickedUpItem ();
 			Destroy (gameObject);

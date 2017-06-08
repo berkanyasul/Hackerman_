@@ -19,12 +19,11 @@ public class GameOverController : MonoBehaviour {
 	}
 
 	void gameOver(){
-		SceneManager.LoadScene(1);	
+		SceneManager.LoadScene(2);	
 	}
 
 	public void pickedUpItem(){
 		pickedUp++;
-		Debug.Log ("Wallah pcikedup");
 		if(pickedUp == needToPickUp){
 			gameOver ();
 		}
