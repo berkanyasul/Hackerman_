@@ -49,6 +49,7 @@
      <Compile Include="Assets\PlayerLook.cs" />
      <Compile Include="Assets\Scripts\ButtonManager.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\GameOverController.cs" />
      <Compile Include="Assets\Scripts\PickUpItem.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
