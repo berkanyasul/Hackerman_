@@ -53,8 +53,6 @@
      <Compile Include="Assets\Scripts\GameOverController.cs" />
      <Compile Include="Assets\Scripts\PickUpItem.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <None Include="Assets\Art\roguelike-pack\License.txt" />
-     <None Include="Assets\Art\roguelike-pack\Spritesheet\spritesheetInfo.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Users/Thundersama/Desktop/MasterStuff/sem 3/gea/unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4e036a81806dbd94e8fb1837e753a2bd
+timeCreated: 1499721424
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ostrich Sans Inline
+  fontNames:
+  - Ostrich Sans Inline
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1fae969dcc8c8184b914a37a4244f9a1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

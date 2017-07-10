@@ -16,8 +16,8 @@ public class EnemyController : MonoBehaviour {
 	// the range at which it detects Player
 	public float Range = 5f;
 	public float GameOverRange = 1f;
-	// what our current speed is (get only)
-	float CurrentSpeed;
+	public float checkDistance = 10f;
+	float CurrentSpeed = 0f;
 	float WaitTimer = 0f;
 	float MaxTimer = 2f;
 
@@ -54,26 +54,48 @@ public class EnemyController : MonoBehaviour {
 			changeCurrentPoint ();
 			return;
 		}
+		checkSight (currentPoint);
 		anim.SetBool("EnemyMoving",true);
 		float dist = Vector3.Distance(transform.position,Player.transform.position);
 		if (dist <= Range && dist > GameOverRange) {
-			Vector3 direction = (Player.transform.position - transform.position).normalized;
-			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-			rb.MovePosition (transform.position + direction * ChaseSpeed * Time.deltaTime);
-			//float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-			//transform.rotation = Quaternion.AngleAxis(angle, Vector3.left);
-			//transform.position = transform.position + direction * ChaseSpeed * Time.deltaTime ;
-			//rb.AddForce(test, ForceMode2D.Force);
+			//Vector3 direction = (Player.transform.position - transform.position).normalized;
+			//float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+			//transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			//rb.MovePosition (transform.position + direction * (ChaseSpeed + CurrentSpeed) * Time.deltaTime);
+			//CurrentSpeed += 0.01f;
+			patrol();
 		} else if (dist < GameOverRange) {
 			Player.GetComponent<GameOverController> ().gameOver ();
 		} else {
+			if (CurrentSpeed > 0f) {
+				CurrentSpeed -= 0.02f;
+			}
+
 			patrol();
 		}	
 	}
+	void checkSight(Transform endPoint){
+		Vector3 start = transform.position;
+		//Vector3 direction = (Player.transform.position - transform.position).normalized;
+		Vector3 direction = (endPoint.position - transform.position).normalized;
+
+
+		//do the ray test
+		RaycastHit2D sightTest = Physics2D.Raycast(start,  direction, checkDistance);
+		Debug.DrawRay(start,direction*checkDistance,Color.red, 5.0f);
+		if (sightTest.collider != null) 
+		{
+			Debug.Log (sightTest.collider.gameObject.name);
+			if (sightTest.collider.gameObject.name == "Player") 
+			{
+				Player.GetComponent<GameOverController> ().gameOver ();
+				Debug.Log ("Rigidbody collider is: " + sightTest.collider);
+			}
+		}
+	}
 
 	void patrol(){
-		float patrolDist = Vector3.Distance(transform.position,currentPoint.position);
+		//float patrolDist = Vector3.Distance(transform.position,currentPoint.position);
 		//if (patrolDist <= 0.1f) {
 		//	changeCurrentPoint ();
 		//}
@@ -92,25 +114,18 @@ public class EnemyController : MonoBehaviour {
 			currentCount = 0;
 		}
 
+		Vector3 direction = (currentPoint.position - transform.position).normalized;
+		float angle = 0f;
 		if (WaitTimer > 0.5f && WaitTimer < 0.9f) {
-			Vector3 direction = (currentPoint.position - transform.position).normalized;
-			float angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 45;
-			transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+			angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 45;
 		} else if (WaitTimer > 0.9f && WaitTimer < 1.4f) {
-			Vector3 direction = (currentPoint.position - transform.position).normalized;
-			float angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 120;
-			transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+			angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 120;
 		}else if (WaitTimer > 1.4f && WaitTimer < 1.7f) {
-			Vector3 direction = (currentPoint.position - transform.position).normalized;
-			float angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 175;
-			transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+			angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 175;
+		}else if (WaitTimer > 1.7f && WaitTimer < 1.9f) {
+			angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 210;
 		}
-		else if (WaitTimer > 1.7f && WaitTimer < 1.9f) {
-			Vector3 direction = (currentPoint.position - transform.position).normalized;
-			float angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 210;
-			transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-		}
-
+		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 
 		WaitTimer += Time.deltaTime;
 		if (WaitTimer > MaxTimer) {
