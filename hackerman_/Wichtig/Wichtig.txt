@@ -2,7 +2,7 @@ Player Detection funktioniert gerade über ein Raycast der zwar läuft
 aber leider nur eine eine gerade Linie ist, Besser wäre ein Cone of Sight, 
 sodass die Wache den Bereich vor sich checkt, 
 dazu gibts auch Code in der EnemyController Datei (z.73)
-der leider nicht fuktioniert,weil die Matrix wegen der Rotation komisch ist, :( 
+der leider nicht fuktioniert,weil die Matrix wegen der Rotation komisch ist :( 
 Momentan ist eingestellt,dass auf Sicht direkt 
 Gameover ist, die Distanz kann man dabei natürlich verstellen (Check Distance Parameter)
 
@@ -19,3 +19,6 @@ Für Musik -> Empty GameObject -> Add Component ->
 			->Audioclip:Music , Play on Awake & Loop beide ON
 Für Patrol Erstelle ein GameObject PatrolPoints mit dem Tag Patrolpoints
 	-> Adde Kinder deren Positionen die abzulaufenden Punkte darstellen
+
+Die Enemy Animation ist eigentlich genauso aufgebaut wie des Players, musst dann den Blendtree des Enemies
+etc übernehmen
