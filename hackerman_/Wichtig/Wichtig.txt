@@ -1,0 +1,21 @@
+Player Detection funktioniert gerade über ein Raycast der zwar läuft 
+aber leider nur eine eine gerade Linie ist, Besser wäre ein Cone of Sight, 
+sodass die Wache den Bereich vor sich checkt, 
+dazu gibts auch Code in der EnemyController Datei (z.73)
+der leider nicht fuktioniert,weil die Matrix wegen der Rotation komisch ist, :( 
+Momentan ist eingestellt,dass auf Sicht direkt 
+Gameover ist, die Distanz kann man dabei natürlich verstellen (Check Distance Parameter)
+
+Ein Anderes Problem ist, dass die Wache immernoch durch Objekte laufen kann
+Obwohl in ihn anhand seines Rigidbody mit der MovePosition methode
+bewege, die genau das unterbinden soll, also gut wäre es
+wenn auf seinem Weg keine Objekte wären damit das nicht so auffällt
+
+die Szenen Start und game over kannste einfach direkt übernehmen
+Für Menü : siehe Abbildung Buildsettings.png
+Für RayCasting : Edit -> Project Settings -> Physics 2D -> Queries start in Colliders muss OFF sein!
+Für Musik -> Empty GameObject -> Add Component -> 
+		Audio Souce 
+			->Audioclip:Music , Play on Awake & Loop beide ON
+Für Patrol Erstelle ein GameObject PatrolPoints mit dem Tag Patrolpoints
+	-> Adde Kinder deren Positionen die abzulaufenden Punkte darstellen

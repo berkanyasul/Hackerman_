@@ -1,1 +1,0 @@
-Edit -> Project Settings -> Physcis 2D -> Queries start in Colliders muss OFF sein!

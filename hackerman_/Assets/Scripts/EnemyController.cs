@@ -17,7 +17,6 @@ public class EnemyController : MonoBehaviour {
 	public float Range = 5f;
 	public float GameOverRange = 1f;
 	public float checkDistance = 10f;
-	float CurrentSpeed = 0f;
 	float WaitTimer = 0f;
 	float MaxTimer = 2f;
 
@@ -47,62 +46,54 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		//Debug.Log ("bool",anim.GetBool ("EnemyMoving"));
 		anim.SetBool("EnemyMoving",false);
 		float patrolDist = Vector3.Distance(transform.position,currentPoint.position);
 		if (patrolDist <= 0.1f) {
 			changeCurrentPoint ();
 			return;
 		}
-		checkSight (currentPoint);
+		bool chasing = checkSight (currentPoint.transform.position);
 		anim.SetBool("EnemyMoving",true);
-		float dist = Vector3.Distance(transform.position,Player.transform.position);
-		if (dist <= Range && dist > GameOverRange) {
-			//Vector3 direction = (Player.transform.position - transform.position).normalized;
-			//float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-			//transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-			//rb.MovePosition (transform.position + direction * (ChaseSpeed + CurrentSpeed) * Time.deltaTime);
-			//CurrentSpeed += 0.01f;
-			patrol();
-		} else if (dist < GameOverRange) {
-			Player.GetComponent<GameOverController> ().gameOver ();
-		} else {
-			if (CurrentSpeed > 0f) {
-				CurrentSpeed -= 0.02f;
-			}
-
-			patrol();
-		}	
+		if (!chasing) {
+			patrol ();
+		}
+			
 	}
-	void checkSight(Transform endPoint){
+	bool checkSight(Vector3 endPoint){
 		Vector3 start = transform.position;
-		//Vector3 direction = (Player.transform.position - transform.position).normalized;
-		Vector3 direction = (endPoint.position - transform.position).normalized;
-
-
-		//do the ray test
+		Vector3 direction = (endPoint - transform.position).normalized;
 		RaycastHit2D sightTest = Physics2D.Raycast(start,  direction, checkDistance);
 		Debug.DrawRay(start,direction*checkDistance,Color.red, 5.0f);
-		if (sightTest.collider != null) 
-		{
-			Debug.Log (sightTest.collider.gameObject.name);
-			if (sightTest.collider.gameObject.name == "Player") 
-			{
-				Player.GetComponent<GameOverController> ().gameOver ();
-				Debug.Log ("Rigidbody collider is: " + sightTest.collider);
+		/*
+		 * dieser Code macht eigentlich dass geguckt wie groß der Radius zwischen spieler und enemy ist
+		 * und überpürft ob dieser Radius kleiner als ein gegebenr wert ist -> falls ja ist er im Sichtfeld
+		 * nur leider ist der angle immer 90 was keinen Sinn ergibt, das liegt höchstwahrscheinlich daran, dass
+		 * der transform.forward sich nicht ändert obwohl die matrix durch rotate verändert wird:(
+		float dist = Vector3.Distance(transform.position,Player.transform.position);
+		if (dist < Range) {
+			Vector3 targetDir = Player.transform.position - transform.position;
+			Vector3 forward = transform.forward;
+			float angle = Vector3.Angle(targetDir, forward);
+			if (angle < 5.0f) {
+				//enemy sees player
 			}
 		}
+*/
+		if (sightTest.collider != null) 
+		{
+			if (sightTest.collider.gameObject.name == "Player") 
+			{
+				//if enemy sees player its gameover
+				Player.GetComponent<GameOverController> ().gameOver ();
+			}
+		}
+		return false;
 	}
 
 	void patrol(){
-		//float patrolDist = Vector3.Distance(transform.position,currentPoint.position);
-		//if (patrolDist <= 0.1f) {
-		//	changeCurrentPoint ();
-		//}
 		Vector3 direction = (currentPoint.position - transform.position).normalized;
-		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
 		rb.MovePosition (transform.position + direction * PatrolSpeed * Time.deltaTime);
 	}
 
@@ -125,12 +116,15 @@ public class EnemyController : MonoBehaviour {
 		}else if (WaitTimer > 1.7f && WaitTimer < 1.9f) {
 			angle = Mathf.Atan2 (-direction.y, -direction.x) * Mathf.Rad2Deg - 210;
 		}
-		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 
+		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+	
+
+		//das würde eigentlich machen, dass er noch ein blickcheck in die Blickrichtung macht
+		// das funktioniert leider auch nicht weil transform forward nicht richtig ist :(
+		//checkSight (transform.up);
 		WaitTimer += Time.deltaTime;
 		if (WaitTimer > MaxTimer) {
-			
-
 			currentPoint = patrolPoints[currentCount];
 			WaitTimer = 0f;
 		}
